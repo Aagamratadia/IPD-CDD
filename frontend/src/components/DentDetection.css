@@ -1,0 +1,610 @@
+/* Modern Variables */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary: #10b981;
+    --secondary-dark: #059669;
+    --surface: #ffffff;
+    --surface-hover: #f8fafc;
+    --background: #f8f9fa;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --error: #ef4444;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --secondary: #34d399;
+    --secondary-dark: #10b981;
+    --surface: #1e293b;
+    --surface-hover: #334155;
+    --background: #0f172a;
+    --text: #f8fafc;
+    --text-light: #cbd5e1;
+    --border: #334155;
+}
+
+/* Base Styles */
+.app-container {
+    min-height: 100vh;
+    background-color: var(--background);
+    color: var(--text);
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    padding: 4rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.1) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.1) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    opacity: 0.1;
+}
+
+/* Card Styles */
+.card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Form Controls */
+.form-control, .form-select {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    outline: none;
+}
+
+/* Upload Area */
+.upload-area {
+    border: 2px dashed var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    background-color: var(--surface);
+}
+
+.upload-area:hover, .upload-area.drag-active {
+    border-color: var(--primary);
+    background-color: var(--surface-hover);
+}
+
+/* Buttons */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+/* Loading States */
+.loading-spinner {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Results Display */
+.result-container {
+    background-color: var(--surface);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: 2rem;
+    animation: slideUp var(--transition-normal);
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+/* Accessibility */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus States */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 3rem 0;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        margin: 1rem 0;
+    }
+}
+
+/* Dark Mode Specific Styles */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+    background-color: var(--surface);
+    border-color: var(--border);
+    color: var(--text);
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+[data-theme="dark"] .upload-area {
+    background-color: var(--surface);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .upload-area:hover,
+[data-theme="dark"] .upload-area.drag-active {
+    background-color: var(--surface-hover);
+    border-color: var(--primary);
+}
+
+/* Animations */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Error States */
+.error-message {
+    color: var(--error);
+    background-color: rgba(239, 68, 68, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Success States */
+.success-message {
+    color: var(--success);
+    background-color: rgba(34, 197, 94, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.dent-detection-container {
+    min-height: 100vh;
+    padding: 6rem 1rem 2rem;
+    background: var(--background);
+}
+
+.dent-detection-content {
+    max-width: 800px;
+    margin: 0 auto;
+    animation: fadeIn var(--transition-normal);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.section-description {
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.upload-area.has-image {
+    border-style: solid;
+    padding: 0;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+.upload-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.upload-icon {
+    width: 64px;
+    height: 64px;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.upload-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.upload-hint {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.preview-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.change-image-btn {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: var(--surface);
+    color: var(--text);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.change-image-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.analyze-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.analyze-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.analyze-btn:disabled {
+    background: var(--text-light);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.result-title {
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.result-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.result-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.result-label {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.result-value {
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.result-value.highlight {
+    color: var(--primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.find-shop-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.find-shop-btn:hover {
+    background: var(--secondary-dark);
+    transform: translateY(-2px);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    }
+
+/* Light Mode Styles */
+.app-container {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    color: #2c3e50;
+}
+
+.hero-section {
+    background-color: #007bff;
+    color: white;
+}
+
+.card {
+    background-color: white;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+.about-section {
+    background-color: #f8f9fa;
+}
+
+/* Dark Mode Styles */
+.app-container.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.app-container.dark-mode .hero-section {
+    background-color: #2c3e50;
+}
+
+.app-container.dark-mode .card {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+.app-container.dark-mode .about-section {
+    background-color: #1a1a1a;
+}
+
+.app-container.dark-mode .form-label {
+    color: #ffffff;
+}
+
+.app-container.dark-mode .form-control,
+.app-container.dark-mode .form-select {
+    background-color: #3a3a3a;
+    border-color: #444;
+    color: #ffffff;
+}
+
+.app-container.dark-mode .form-control:focus,
+.app-container.dark-mode .form-select:focus {
+    background-color: #3a3a3a;
+    border-color: #3498db;
+    color: #ffffff;
+}
+
+.app-container.dark-mode .form-control::placeholder {
+    color: #888;
+}
+
+.app-container.dark-mode .text-muted {
+    color: #b0b0b0 !important;
+    }
+
+.app-container.dark-mode .btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+.app-container.dark-mode .btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+.app-container.dark-mode .btn-success {
+    background-color: #2ecc71;
+    border-color: #2ecc71;
+    }
+
+.app-container.dark-mode .btn-success:hover {
+    background-color: #27ae60;
+    border-color: #27ae60;
+}
+
+.app-container.dark-mode .alert-danger {
+    background-color: #c0392b;
+    border-color: #c0392b;
+    color: #ffffff;
+    }
+
+/* Card specific dark mode styles */
+.app-container.dark-mode .card-body {
+    background-color: #2c2c2c;
+}
+
+.app-container.dark-mode .card-title {
+    color: #ffffff;
+}
+
+.app-container.dark-mode .card h4,
+.app-container.dark-mode .card h5,
+.app-container.dark-mode .card h6 {
+    color: #ffffff;
+}
+
+.app-container.dark-mode .card p {
+    color: #b0b0b0;
+}
+
+.app-container.dark-mode .card strong {
+    color: #ffffff;
+}
+
+/* Form elements dark mode styles */
+.app-container.dark-mode .form-select {
+    background-color: #3a3a3a;
+    color: #ffffff;
+}
+
+.app-container.dark-mode .form-select option {
+    background-color: #3a3a3a;
+    color: #ffffff;
+    }
+
+/* Loading spinner dark mode */
+.app-container.dark-mode .spinner-border {
+    color: #ffffff;
+} 
