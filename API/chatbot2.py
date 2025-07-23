@@ -2,10 +2,16 @@ import os
 import google.generativeai as genai
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
+from dotenv import load_dotenv
+
+# Load environment variables from config.env
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config.env'))
 
 # Configure Gemini API
-# Replace with your API key from https://ai.google.dev/
-API_KEY = "AIzaSyA4G7lJ7XxpLejeD4qGk4SGScp7Wx7t0xs"
+API_KEY = os.getenv('GOOGLE_API_KEY')
+if not API_KEY:
+    raise ValueError("GOOGLE_API_KEY not found in environment variables")
+
 genai.configure(api_key=API_KEY)
 
 # Path to FAISS index
