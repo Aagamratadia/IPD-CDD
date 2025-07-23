@@ -225,8 +225,21 @@ async def chat(message: ChatMessage):
         The bot's response
     """
     try:
+        print(f"\n=== New Chat Request ===")
+        print(f"Message: {message.message}")
+        
+        # Load the vector store if not already loaded
+        global vector_store
+        if vector_store is None:
+            print("Loading FAISS index...")
+            vector_store = load_faiss_index()
+        
         if isinstance(vector_store, str):
-            raise HTTPException(status_code=500, detail=vector_store)
+            error_msg = f"Failed to load FAISS index: {vector_store}"
+            print(error_msg)
+            raise HTTPException(status_code=500, detail=error_msg)
+        
+        print("Vector store loaded successfully")
         
         # Add formatting instructions to the user's message
         formatted_message = f"""
@@ -240,10 +253,20 @@ etc.
 
 Question: {message.message}
 """
+        print("Querying Gemini...")
         response = query_gemini_rag(formatted_message, vector_store)
+        print("Received response from Gemini")
         return ChatResponse(response=response)
+        
+    except HTTPException as he:
+        print(f"HTTP Exception: {he.detail}")
+        raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        error_msg = f"Unexpected error: {str(e)}"
+        print(error_msg)
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=error_msg)
 
 # Add a simple test endpoint
 @app.get("/")

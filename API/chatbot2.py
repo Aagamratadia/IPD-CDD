@@ -4,7 +4,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from dotenv import load_dotenv
 
-# Load environment variables from config.env
+# Load environment variables from config.env in the project root
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config.env'))
 
 # Configure Gemini API
